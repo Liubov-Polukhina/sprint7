@@ -1,15 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+
+
 import React, {useState, Fragment, useEffect} from 'react';
-import { useLocalStorage } from './useLocalStorage';
+
 import ReactDOM from 'react-dom';
 import Routes from './routes';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Input, Card} from 'react-bootstrap'
+import styled from 'styled-components';
+import Elemento from "./Boton";
+import  Popup from "./Popup";
+import './App.css';
 
-function App() {
 
-  
+  function App(){  
+    
+
   const [seleccion, setSeleccion] = useState(() =>{
     try {
       const item=window.localStorage.getItem('seleccion')
@@ -73,10 +78,10 @@ function App() {
     }
     
   }
-  const calculoDetalle = (event) => {
+  const calculoDetalle = (name,count) => {
     setDatosDetalle ({
       ...datosDetalle, 
-      [event.target.name] : event.target.value
+      [name] : count
     });
     try{
       window.localStorage.setItem('datosDetalle',  JSON.stringify(datosDetalle));
@@ -88,10 +93,19 @@ function App() {
 
   useEffect(()=>{
     calculaPrecio();
-    }, [seleccion, datosDetalle])
+  }, [seleccion, datosDetalle])
+
+  const PopupB = styled.button `
+  color: black;
+  border-radius: 3px;
+  margin-right: 3px;
+  `
+  const [buttonPopuppaginas, setButtonPopuppaginas] = useState(false);
+  const [buttonPopupidiomas, setButtonPopupidiomas] = useState(false);
+
 
   return (
-    <div>
+    <div className='container'>
       {/* <header className='header'>
         <Card style = {{color: "black"}}>
           <Card.Body>
@@ -100,28 +114,47 @@ function App() {
         
       </header> */}
     <p>¿Qué quieres hacer?</p>
+    <div className='p'>
     <input type="checkbox" name='web' onChange={cambioInput} checked={seleccion.web}></input>
-    <p>Una página web (500€)</p>
+    <p className='numero'>Una página web (500€)</p>
+    </div>
     {seleccion.web && (
-        <div>
+        <div className='card'>
           <Card style = {{color: "black"}}>
           <Card.Body>
-      
+          <div className='p'>
             <p>Número de páginas</p>
-            <input type="number" name="paginas" min="0" onChange={calculoDetalle} value={datosDetalle.paginas}></input>
+            <Elemento name = "paginas" value = {datosDetalle.paginas} callback = {calculoDetalle}></Elemento>
+            <PopupB onClick={() => setButtonPopuppaginas(true)}>i</PopupB>
+            
+            </div>
+
+            <div className='p'>
             <p>Número de idiomas</p>
-            <input type="number" name="idiomas" min="0" onChange={calculoDetalle} value={datosDetalle.idiomas}></input>
+            <Elemento name = "idiomas" value = {datosDetalle.idiomas} callback = {calculoDetalle}></Elemento>
+            <PopupB onClick={() => setButtonPopupidiomas(true)}>i</PopupB>
+            </div>
+            
         </Card.Body>
         </Card>
+       
         </div>
     )}
+    
+    <div className='p'> 
     <input type="checkbox" name='consultoria' onChange={cambioInput} checked={seleccion.consultoria}></input>
-    <p>Una consultoria SEO (300€)</p>
+    <p className='numero'>Una consultoria SEO (300€)</p>
+    </div>
+    <div className='p'>
     <input type="checkbox" name='ads' onChange={cambioInput} checked={seleccion.ads}></input>
-    <p>Una campanya de google Ads (200€)</p>
+    <p className='numero'>Una campanya de google Ads (200€)</p>
+    </div>
     <p>Precio {precio}€</p>
+    <Popup name="paginas" numero={datosDetalle.paginas} trigger ={buttonPopuppaginas} ></Popup>
+    <Popup name="idiomas" numero={datosDetalle.idiomas} trigger ={buttonPopupidiomas} ></Popup>
     </div>
   );
-}
+    }
+
 
 export default App;
