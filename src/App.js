@@ -4,8 +4,8 @@ import React, {useState, Fragment, useEffect} from 'react';
 
 import ReactDOM from 'react-dom';
 import Routes from './routes';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import {Input, Card} from 'react-bootstrap'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+import {Card} from './styled';
 import styled from 'styled-components';
 import Elemento from "./Boton";
 import  Popup from "./Popup";
@@ -103,25 +103,27 @@ import './App.css';
   const [buttonPopuppaginas, setButtonPopuppaginas] = useState(false);
   const [buttonPopupidiomas, setButtonPopupidiomas] = useState(false);
 
+  const [estado, cambiarEstado] = useState(false);
+
+  useEffect(() => {
+    function 
+  }
+  )
 
   return (
     <div className='container'>
-      {/* <header className='header'>
-        <Card style = {{color: "black"}}>
-          <Card.Body>
-            Card
-          </Card.Body>
-        
-      </header> */}
-    <p>¿Qué quieres hacer?</p>
+
+    <p>¿Qué quieres hacer?</p>    
+
     <div className='p'>
     <input type="checkbox" name='web' onChange={cambioInput} checked={seleccion.web}></input>
     <p className='numero'>Una página web (500€)</p>
     </div>
     {seleccion.web && (
-        <div className='card'>
-          <Card style = {{color: "black"}}>
-          <Card.Body>
+        <div>
+          <Card style = {{color: "black"}}>                
+
+        
           <div className='p'>
             <p>Número de páginas</p>
             <Elemento name = "paginas" value = {datosDetalle.paginas} callback = {calculoDetalle}></Elemento>
@@ -134,13 +136,14 @@ import './App.css';
             <Elemento name = "idiomas" value = {datosDetalle.idiomas} callback = {calculoDetalle}></Elemento>
             <PopupB onClick={() => setButtonPopupidiomas(true)}>i</PopupB>
             </div>
-            
-        </Card.Body>
+
+      
         </Card>
        
         </div>
     )}
-    
+          <Popup name="paginas" numero={datosDetalle.paginas} trigger ={buttonPopuppaginas} ></Popup>
+          <Popup name="idiomas" numero={datosDetalle.idiomas} trigger ={buttonPopupidiomas} ></Popup>
     <div className='p'> 
     <input type="checkbox" name='consultoria' onChange={cambioInput} checked={seleccion.consultoria}></input>
     <p className='numero'>Una consultoria SEO (300€)</p>
@@ -150,8 +153,7 @@ import './App.css';
     <p className='numero'>Una campanya de google Ads (200€)</p>
     </div>
     <p>Precio {precio}€</p>
-    <Popup name="paginas" numero={datosDetalle.paginas} trigger ={buttonPopuppaginas} ></Popup>
-    <Popup name="idiomas" numero={datosDetalle.idiomas} trigger ={buttonPopupidiomas} ></Popup>
+
     </div>
   );
     }

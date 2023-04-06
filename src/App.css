@@ -15,17 +15,17 @@
 .numero{
   margin: 0;
 }
-.card{
+/* .card{
   max-width: 400px;
   border-color: black;
-}
+} */
 
 .botones{
   display: flex;
   align-items: start;
 }
 
-.popup{
+/* .popup{
   position: fixed;
   display: flex;
   align-items: center;
@@ -37,5 +37,5 @@
   border-color: rgb(186, 21, 21);
   box-shadow: rgba(100, 100, 111, 0.2);
   padding: 20px;
-}
+} */
 
